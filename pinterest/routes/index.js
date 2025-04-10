@@ -2,38 +2,51 @@ var express = require('express');
 var router = express.Router();
 const userModel = require('./users');
 const postModel = require('./post');
+const passport = require('passport');
+const localStrategy = require("passport-local");
+passport.use(new localStrategy(userModel.authenticate()));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('register', { title: 'Express' });
 });
 
-router.get('/createuser', async function(req, res){
-  let createduser = await userModel.create({
-    username: "ravisaini",
-    password: "ravi030504",
-    fullName: "Ravi Saini",
-    userEmail: "ravisainipaptawan030504@gmail.com",
-    posts: [],
+router.get('/profile', isLoggedIn, function(req, res, next){
+  res.render('index', {title: 'Profile'});
+});
+
+router.post("/register", function(req, res){
+  const {username, useremail, fullname} = req.body;
+  const userData = new userModel({username, useremail, fullname});
+
+  userModel.register(userData, req.body.password)
+  .then(function(){
+    passport.authenticate("local")(req, res, function(){
+      res.redirect("/profile");
+    });
   });
-  res.send(createduser);
 });
 
-router.get('/getuser', async function(req, res){
-  let getuserinfo = await userModel.findOne({username: "ravisaini"});
-  res.send(getuserinfo);
+router.get('/login', function(req, res) {
+  res.render('login');
 });
 
-router.get('/createpost', async function(req, res){
-  let createdpost = await postModel.create({
-    postText: "nVedia Rtx 5090",
-    user: "67f3fc3e9ef2b5d03e1d0c4e"
+router.post("/login", passport.authenticate("local", {
+  successRedirect: "/profile",
+  failureRedirect: "/"
+}), function(req, res, next){
+});
+
+router.post("/logout", function(req, res){
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
   });
-  let user = await userModel.findOne({_id: "67f3fc3e9ef2b5d03e1d0c4e"});
-  user.posts.push(createdpost._id);
-  await user.save();
-  res.send("done");
 });
 
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()) return next();
+  res.redirect("/");
+}
 
 module.exports = router;
