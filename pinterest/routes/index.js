@@ -11,8 +11,8 @@ router.get('/', function(req, res, next) {
   res.render('register', { title: 'Express' });
 });
 
-router.get('/profile', isLoggedIn, function(req, res, next){
-  res.render('index', {title: 'Profile'});
+router.get('/home', isLoggedIn, function(req, res, next){
+  res.render('feed', {title: 'Profile'});
 });
 
 router.post("/register", function(req, res){
@@ -22,7 +22,7 @@ router.post("/register", function(req, res){
   userModel.register(userData, req.body.password)
   .then(function(){
     passport.authenticate("local")(req, res, function(){
-      res.redirect("/profile");
+      res.redirect("/home");
     });
   });
 });
@@ -32,7 +32,7 @@ router.get('/login', function(req, res) {
 });
 
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/profile",
+  successRedirect: "/home",
   failureRedirect: "/"
 }), function(req, res, next){
 });
@@ -42,6 +42,10 @@ router.post("/logout", function(req, res){
     if (err) { return next(err); }
     res.redirect('/');
   });
+});
+
+router.get('/profile', isLoggedIn, function(req, res, next) {
+  res.render('index', {title: 'Your Profile'});
 });
 
 function isLoggedIn(req, res, next){

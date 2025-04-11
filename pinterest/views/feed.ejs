@@ -4,27 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
-  <link rel="stylesheet" href="/stylesheets/index.css">
+  <link rel="stylesheet" href="/stylesheets/feed.css">
 </head>
   <body>
     <nav>
-     <div class="logo">
-       <h5>LOGO</h5>
-     </div>
-     <ul class="navLink">
-       <li><a href="#">About</a></li>
-       <li><a href="#">Contact</a></li>
-       <li><a href="#">Projects</a></li>
-     </ul>
-    <div class="lines">
-     <div class="l1"></div>
-     <div class="l2"></div>
-     <div class="l3"></div>
-    </div>
-    <form action="/logout" method="post">
-      <button type="submit" style="padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px;">Logout</button>
-    </form>
-   </nav>
+      <a href="/home">
+        <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
+      </a>
+    
+      <div class="middle-nav">
+        <a href="#" class="home-link">Home</a>
+      
+        <form action="/search" method="GET" class="search-bar">
+          <input type="text" name="query" placeholder="Search..." />
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+      </div>
+    
+      <div class="nav-profile">
+        <a href="/profile">
+          <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="User" class="nav-profile-img" />
+        </a>
+        <form action="/logout" method="post">
+          <button type="submit" class="logout-btn">Logout</button>
+        </form>
+      </div>
+    </nav>
 
 <div class="container">
 

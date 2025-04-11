@@ -5,45 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
   <link rel="stylesheet" href="/stylesheets/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
 </head>
   <body>
-    <nav>
-      <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
-     <ul class="navLink">
-       <li><a href="#">About</a></li>
-       <li><a href="#">Contact</a></li>
-       <li><a href="#">Projects</a></li>
-     </ul>
-    <div class="lines">
-     <div class="l1"></div>
-     <div class="l2"></div>
-     <div class="l3"></div>
-    </div>
-    <form action="/logout" method="post">
-      <button type="submit" style="padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px;">Logout</button>
-    </form>
-   </nav>
 
-     <!-- Cards: User -->
-  <div class="user-card">
-    <!-- Card Cover/Avatar -->
-    <div class="card-cover" style="background-image: url('https://cdn.tailkit.com/media/placeholders/photo-JgOeRuGD_Y4-800x400.jpg');">
-      <div class="avatar-wrapper">
-        <div class="avatar">
-          <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="User Avatar" class="avatar-img">
-        </div>
+    <nav>
+      <a href="/home">
+        <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
+      </a>
+    
+      <div class="middle-nav">
+        <a href="#" class="home-link">Home</a>
+      
+        <form action="/search" method="GET" class="search-bar">
+          <input type="text" name="query" placeholder="Search..." />
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+      </div>
+    
+      <div class="nav-profile">
+          <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="User" class="nav-profile-img" />
+        <form action="/logout" method="post">
+          <button type="submit" class="logout-btn">Logout</button>
+        </form>
+      </div>
+    </nav>
+    
+
+<div class="page-content">
+  <div class="profile-container">
+    <div class="left-panel">
+      <h2>Quick Actions</h2>
+      <button class="pin-button">Post a New Picture</button>
+      <button class="pin-button">Upload to Pinterest</button>
+      <button class="pin-button">View Your Pins</button>
+    </div>
+    <div class="right-panel">
+      <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="Profile" class="profile-img" />
+      <div class="username">Ravi Saini</div>
+      <div class="description">
+        Passionate photographer and designer. Love sharing aesthetic moments through pictures. ✨
       </div>
     </div>
-    <!-- END Card Cover/Avatar -->
-
-    <!-- Card Body -->
-    <div class="card-body">
-      <h3 class="card-name">Ravi Saini</h3>
-      <p class="card-info">12 pictures</p>
-    </div>
-    <!-- END Card Body -->
   </div>
-   
+</div>
 
  <script src="https://code.jquery.com/jquery-3.3.1.js">
   const navSlide = () => {
@@ -61,7 +67,7 @@
 	
 	navSlide();
  </script>
-  <script src="app.js"></script>
+ <script src="app.js"></script>
 </body>
          
 </html>
