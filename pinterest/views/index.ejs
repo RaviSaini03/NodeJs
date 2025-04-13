@@ -8,66 +8,114 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 </head>
-  <body>
+<body>
 
-    <nav>
-      <a href="/home">
-        <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
-      </a>
-    
-      <div class="middle-nav">
-        <a href="#" class="home-link">Home</a>
+  <nav>
+        <a href="/home">
+          <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
+        </a>
       
-        <form action="/search" method="GET" class="search-bar">
-          <input type="text" name="query" placeholder="Search..." />
-          <button type="submit" class="search-btn">Search</button>
-        </form>
-      </div>
-    
-      <div class="nav-profile">
-          <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="User" class="nav-profile-img" />
-        <form action="/logout" method="post">
-          <button type="submit" class="logout-btn">Logout</button>
-        </form>
-      </div>
-    </nav>
-    
+        <div class="middle-nav">
+          <a href="#" class="home-link">Home</a>
+        
+          <form action="/search" method="GET" class="search-bar">
+            <input type="text" name="query" placeholder="Search..." />
+            <button type="submit" class="search-btn">Search</button>
+          </form>
+        </div>
+      
+        <div class="nav-profile">
+            <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="User" class="nav-profile-img" />
+          <form action="/logout" method="post">
+            <button type="submit" class="logout-btn">Logout</button>
+          </form>
+        </div>
+  </nav>
+      
 
-<div class="page-content">
-  <div class="profile-container">
-    <div class="left-panel">
-      <h2>Quick Actions</h2>
-      <button class="pin-button">Post a New Picture</button>
-      <button class="pin-button">Upload to Pinterest</button>
-      <button class="pin-button">View Your Pins</button>
-    </div>
-    <div class="right-panel">
-      <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="Profile" class="profile-img" />
-      <div class="username">Ravi Saini</div>
-      <div class="description">
-        Passionate photographer and designer. Love sharing aesthetic moments through pictures. ✨
+  <div class="page-content">
+    <div class="profile-container">
+      <div class="left-panel">
+        <h2>Quick Actions</h2>
+        <button class="pin-button" id="post-photo">Post a New Picture</button>
+      </div>
+      <div class="right-panel">
+        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg" alt="Profile" class="profile-img" />
+        <div class="username"><%= user.fullname %></div>
+        <div class="description">
+          @<%= user.username %>
+        </div>
+        <div class="description">
+          Passionate photographer and designer. Love sharing aesthetic moments through pictures. ✨
+        </div>
       </div>
     </div>
   </div>
-</div>
 
- <script src="https://code.jquery.com/jquery-3.3.1.js">
-  const navSlide = () => {
-		const lines = document.querySelector('.lines');
-		const nav = document.querySelector('.navLink');
-		
-		lines.addEventListener('click',() => {
-			nav.classList.toggle('nav-active');
-			
-		//Line Animation
-		lines.classList.toggle('toggle');
-		});
-	   
-	}
-	
-	navSlide();
- </script>
- <script src="app.js"></script>
+  <!-- Post Photo Modal -->
+  <div class="modal-overlay" id="postModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">×</span>
+      <form action="/post" method="POST" enctype="multipart/form-data" class="modal-form">
+        <div class="left-side">
+          <label>Title</label>
+          <input type="text" name="title" required />
+          
+          <label>Description</label>
+          <textarea name="description" rows="4" required></textarea>
+
+          <label>Choose Image</label>
+          <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required />
+          <button type="submit">Post</button>
+        </div>
+
+        <div class="right-side">
+          <img id="imagePreview" src="" alt="Image Preview" />
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js">
+      const navSlide = () => {
+      const lines = document.querySelector('.lines');
+      const nav = document.querySelector('.navLink');
+      
+      lines.addEventListener('click',() => {
+        nav.classList.toggle('nav-active');
+        
+      //Line Animation
+      lines.classList.toggle('toggle');
+      });
+      
+    }
+    navSlide();
+  </script>
+  <script src="app.js"></script>
+  <script>
+
+    document.getElementById('post-photo').addEventListener('click' ,() => {
+      document.getElementById('postModal').style.display = 'flex';
+    });
+    
+    function closeModal(){
+      document.getElementById('postModal').style.display = 'none';
+    }
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeModal();
+    });
+
+    function previewImage(){
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('imagePreview');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+  </script>
 </body>
          
 </html>

@@ -16,8 +16,12 @@
           <form action="/login" method="post">
             <input type="text" name="username" placeholder="Username" class="detail" /><br />
             <input type="password" name="password" placeholder="Password" class="detail" />
+            <% if(error.length > 0) { %>
+              <p class="error"><%= error %></p>
+            <% } %>
             <button class="btn int">Log in</button>
           </form>
+
   
           <h4>Forgot your password?</h4>
   

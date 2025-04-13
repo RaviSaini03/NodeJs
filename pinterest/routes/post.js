@@ -2,7 +2,11 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  postText: {
+  title: {
+    type: String,
+    required: true,
+  },
+  discription: {
     type: String,
     required: true,
   },
