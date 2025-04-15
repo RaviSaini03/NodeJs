@@ -52,11 +52,22 @@
     </div>
   </div>
 
+  <div class="container">
+
+    <% user.posts.forEach(function(post){  %>
+      <div class="box">
+        <img src="/images/uploads/<%= post.image %>" alt="image">
+        <h3 id="title"> <%= post.title %> </h3>
+        <p id="discription"> <%= post.discription %> </p>
+      </div>
+    <% }) %>
+  </div>
+
   <!-- Post Photo Modal -->
   <div class="modal-overlay" id="postModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">×</span>
-      <form action="/post" method="POST" enctype="multipart/form-data" class="modal-form">
+      <form action="/upload" method="post" enctype="multipart/form-data" class="modal-form">
         <div class="left-side">
           <label>Title</label>
           <input type="text" name="title" required />
@@ -65,7 +76,7 @@
           <textarea name="description" rows="4" required></textarea>
 
           <label>Choose Image</label>
-          <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required />
+          <input type="file" name="file" accept="image/*" onchange="previewImage(event)" required />
           <button type="submit">Post</button>
         </div>
 

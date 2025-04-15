@@ -19,10 +19,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  posts: {
+  posts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'
-  },
+  }],
   dp: {
     type: String, // because of url of image from user system
     default: '', // default profile picture for everyone
